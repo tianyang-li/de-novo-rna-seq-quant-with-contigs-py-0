@@ -21,12 +21,21 @@ import getopt
 def usage():
     print >> sys.stderr, "%s" % (sys.argv[0])
 
+def die_usage():
+    usage()
+    sys.exit(1)
+
 def main():
-    r2c_align_file = None
+    r2c_align_file = None  # SAM or BAM containing read to contig alignments
+    c2c_align_file = None  # SAM or BAM containing contig to contig alignments
+    
     if not r2c_align_file:
         print >> sys.stderr, "Read to contig alignment file missing!"
-        usage()
-        sys.exit(1)
+        die_usage()
+        
+    if not c2c_align_file:
+        print >> sys.stderr, "Contig to contig alignment file is missing"
+        die_usage()
 
 if __name__ == '__main__':
     main()
