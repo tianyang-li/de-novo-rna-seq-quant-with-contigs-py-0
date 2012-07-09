@@ -1,9 +1,0 @@
-REF_FILE_NAME test1.gtf 
-GEN_DIR ~/workspace/quant-0/work/hs/
-
-LOAD_CODING
-LOAD_NONCODING
-
-READ_LENGTH 100
-PAIRED_END false
-
