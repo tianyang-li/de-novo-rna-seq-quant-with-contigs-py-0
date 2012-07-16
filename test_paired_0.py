@@ -15,30 +15,15 @@
 #
 #  You should have received a copy of the GNU General Public License
 
-import sys
 import getopt
-
-def usage():
-    print >> sys.stderr, "%s" % (sys.argv[0])
-
-def die_usage():
-    usage()
-    sys.exit(1)
+import sys
 
 def main():
-    r2c_align_file = None  # SAM or BAM containing read to contig alignments
-    c2c_align_file = None  # SAM or BAM containing contig to contig alignments
-    
-    if not r2c_align_file:
-        print >> sys.stderr, "Read to contig alignment file missing!"
-        die_usage()
-        
-    if not c2c_align_file:
-        print >> sys.stderr, "Contig to contig alignment file is missing"
-        die_usage()
+    contig_file = None
+    if (not contig_file):
+        print >> sys.stderr, "missing"
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()
-
-
 
