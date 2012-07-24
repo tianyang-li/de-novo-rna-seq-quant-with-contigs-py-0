@@ -15,4 +15,10 @@
 #
 #  You should have received a copy of the GNU General Public License
 
+from Bio import SeqIO
+import pysam
 
+def single_filter(sam_file, reads_file, reads_fmt):
+    
+    
+    
