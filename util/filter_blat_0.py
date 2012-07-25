@@ -15,4 +15,60 @@
 #
 #  You should have received a copy of the GNU General Public License
 
+import sys
+import getopt
+
+from Bio import SeqIO
+
+def single_unaligned(psl_file, read_file, fmt, unaligned_out):
+    aligned_ids = set([])
+    
+    with open(psl_file, 'r') as fin:
+        for line in fin:
+            aligned_ids.add(line.strip().split("\t")[9]) 
+    
+    with open(unaligned_out, 'w') as fout:
+        for rec in SeqIO.parse(read_file, fmt):
+            if rec.id not in aligned_ids:
+                fout.write(rec.format(fmt))
+
+class _ActionType(object):
+    get_unaligned = 1
+
+def main():
+    action = None
+    psl_file = None
+    s_read_file = None
+    s_unaligned_file = None
+    
+    #TODO: paired end reads
+    
+    try:
+        opts, args = getopt.getopt(sys.argv[1:],
+                                   '',
+                                   ["SUA=", "psl=", "SR="])
+    except getopt.GetoptError as err:
+        print >> sys.stderr, str(err)
+        sys.exit(1)
+    
+    for opt, arg in opts:
+        if opt == '--psl':
+            psl_file = arg
+        if opt == '--SUA':  # single un-aligned
+            s_unaligned_file = arg
+            action = _ActionType.get_unaligned
+        if opt == '--SR':
+            s_read_file = arg
+        
+    if ((action == _ActionType.get_unaligned 
+         and not(s_read_file and s_unaligned_file))):
+        print >> sys.stderr, "missing"
+        sys.exit(1)
+    
+    if action == _ActionType.get_unaligned:
+        single_unaligned(psl_file, s_read_file, 'fasta', s_unaligned_file)
+
+if __name__ == '__main__':
+    main()
+        
 
