@@ -15,19 +15,4 @@
 #
 #  You should have received a copy of the GNU General Public License
 
-import sys
-import getopt
-
-from Bio import SeqIO
-
-
-
-def main():
-    contig_file = None
-    all_read_file = None
-    blat_reads = None  # reads that are fed to blat to align
-    ua_reads = None  # reads unaligned by bowtie and blat 
-
-if __name__ == '__main__':
-    main()
 
