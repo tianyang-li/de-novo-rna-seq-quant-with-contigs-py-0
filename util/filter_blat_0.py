@@ -20,6 +20,18 @@ import getopt
 
 from Bio import SeqIO
 
+def filter_self(psl_in, psl_out):
+    fin = open(psl_in, 'r')
+    fout = open(psl_out, 'w')
+    
+    for line in fin:
+        entries = line.strip().split("\t")
+        if entries[13] != entries[9]:
+            fout.write(line)
+    
+    fin.close()
+    fout.close() 
+
 def single_unaligned(psl_file, read_file, fmt, unaligned_out, aligned_out):
     aligned_ids = set([])
     
@@ -37,6 +49,7 @@ def single_unaligned(psl_file, read_file, fmt, unaligned_out, aligned_out):
 
 class _ActionType(object):
     get_unaligned = 1
+    psl_un_duplicate = 2
 
 def main():
     action = None
@@ -45,13 +58,18 @@ def main():
     s_unaligned_file = None
     s_aligned_file = None
     
+    s_psl_in = None
+    s_psl_out = None
+    
     #TODO: paired end reads
     
     try:
         opts, args = getopt.getopt(sys.argv[1:],
                                    '',
                                    ['SP=', 'psl=',
-                                    'SR='])
+                                    'SR=',
+                                    'psl-un-dup',
+                                    's-psl-in=', 's-psl-out='])
     except getopt.GetoptError as err:
         print >> sys.stderr, str(err)
         sys.exit(1)
@@ -65,11 +83,20 @@ def main():
             action = _ActionType.get_unaligned
         if opt == '--SR':
             s_read_file = arg
+        if arg == '--psl-un-dep':
+            action = _ActionType.psl_un_duplicate
+        if arg == '--s-psl-in':
+            s_psl_in = arg
+        if arg == '--s-psl-out':
+            s_psl_out = arg
         
     if ((action == _ActionType.get_unaligned 
          and not(s_read_file 
                  and s_unaligned_file 
-                 and s_aligned_file))):
+                 and s_aligned_file))
+        or (action == _ActionType.psl_un_duplicate
+            and not(s_psl_in
+                    and s_psl_out))):
         print >> sys.stderr, "missing"
         sys.exit(1)
     
@@ -77,6 +104,8 @@ def main():
         single_unaligned(psl_file, s_read_file,
                          'fasta', s_unaligned_file,
                          s_aligned_file)
+    elif action == _ActionType.psl_un_duplicate:
+        filter_self(s_psl_in, s_psl_out)
 
 if __name__ == '__main__':
     main()
