@@ -17,8 +17,15 @@ from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
 
+seqan_libs = ["rt"]
+seqan_cflags = ['-W', '-Wall', '-Wno-long-long',
+                '-pedantic', '-Wno-variadic-macros']
+
 setup(
     cmdclass={'build_ext': build_ext},
-    ext_modules=[Extension("sw_align_0", ["sw_align_0.pyx"])]
+    ext_modules=[Extension("sw_align_0", ["sw_align_0.pyx"],
+                           libraries=[] + seqan_libs,
+                           extra_link_args=[] + seqan_cflags,
+                           extra_compile_args=[] + seqan_cflags)]
 )
 

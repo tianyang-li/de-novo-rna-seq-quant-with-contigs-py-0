@@ -17,10 +17,15 @@
 
 *.stats
 
+util/build/
 
 work/
 
 .~*
 
 util/sw_align_0.c
+
+*.o
+
+*.so
 
