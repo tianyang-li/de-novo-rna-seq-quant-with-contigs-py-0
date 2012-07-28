@@ -19,10 +19,14 @@
 #ifndef SW_ALIGN_0_H_
 #define SW_ALIGN_0_H_
 
-namespace sw_align_0 {
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 
+#ifdef __cplusplus
 }
+#endif
 
 #endif  // SW_ALIGN_0_H_

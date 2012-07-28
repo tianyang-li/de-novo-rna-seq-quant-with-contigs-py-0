@@ -18,7 +18,5 @@
 
 #include "sw_align_0.h"
 
-namespace sw_align_0 {
 
-}
 
