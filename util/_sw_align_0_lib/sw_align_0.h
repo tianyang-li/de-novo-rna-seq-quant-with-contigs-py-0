@@ -26,14 +26,22 @@
 
 namespace sw_align_0 {
 
+class SWAlgin {
+public:
+};
+
 class AlignSeq {
 public:
 	std::string seq; // 'A' 'C' 'G' 'T' only
 	std::string id; // name
+	std::vector<SWAlgin> aligns;
 };
 
-void ReadContigPairSW(std::vector<AlignSeq> reads,
-		std::vector<AlignSeq> contigs);
+void ReadContigPairSW(std::vector<AlignSeq> *reads,
+		std::vector<AlignSeq> *contigs);
+
+void _ReadContigPairSW(std::vector<AlignSeq> &reads,
+		std::vector<AlignSeq> &contigs);
 
 }
 

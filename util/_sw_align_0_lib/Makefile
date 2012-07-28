@@ -5,7 +5,7 @@ INC= -I../seqan-1.3.1
 
 all: sw_align_0.a
 
-sw_align_0.a: sw_align_0.o
+sw_align_0.a: sw_align_0.o 
 	ar rcs sw_align_0.a sw_align_0.o
 
 sw_align_0.o: sw_align_0.cc sw_align_0.h
