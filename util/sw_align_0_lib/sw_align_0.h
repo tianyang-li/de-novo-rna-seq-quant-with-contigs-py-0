@@ -26,7 +26,12 @@ extern "C" {
 #endif
 
 struct RawSeqAlign {
-
+	// alignment between 2 reads
+	// sequence is composed of 'A' 'C' 'G' 'T'
+	char *q_id; // query id (name)
+	char *q_seq; // query sequence
+	char *s_id; // subject id (name)
+	char *s_seq; // subject sequence
 };
 typedef struct RawSeqAlign RawSeqAlign;
 
