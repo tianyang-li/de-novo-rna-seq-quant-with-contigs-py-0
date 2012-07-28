@@ -23,7 +23,7 @@
 extern "C" {
 #endif
 
-
+#include "../seqan-1.3.1/seqan/align.h"
 
 #ifdef __cplusplus
 }
