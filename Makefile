@@ -11,7 +11,7 @@ test:
 
 clean:
 	cd util/sw_align_0_lib/ && $(MAKE) clean
-	rm -fv util/sw_align_0.so util/sw_align_0.c
+	rm -fv util/sw_align_0.so util/sw_align_0.cpp
 	rm -rfv util/build/
 
 .PHONY: clean

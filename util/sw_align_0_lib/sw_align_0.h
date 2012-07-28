@@ -19,24 +19,22 @@
 #ifndef SW_ALIGN_0_H_
 #define SW_ALIGN_0_H_
 
+#include <string>
+#include <vector>
+
 #include <seqan/align.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+namespace sw_align_0 {
 
-struct RawSeqAlign {
-	// alignment between 2 reads
-	// sequence is composed of 'A' 'C' 'G' 'T'
-	char *q_id; // query id (name)
-	char *q_seq; // query sequence
-	char *s_id; // subject id (name)
-	char *s_seq; // subject sequence
+class AlignSeq {
+public:
+	std::string seq; // 'A' 'C' 'G' 'T' only
+	std::string id; // name
 };
-typedef struct RawSeqAlign RawSeqAlign;
 
-#ifdef __cplusplus
-} // extern "C"
-#endif
+void ReadContigPairSW(std::vector<AlignSeq> reads,
+		std::vector<AlignSeq> contigs);
+
+}
 
 #endif  // SW_ALIGN_0_H_

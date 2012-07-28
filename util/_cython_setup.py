@@ -29,6 +29,7 @@ setup(
                            extra_link_args=[] + seqan_cflags,
                            extra_compile_args=[] + seqan_cflags,
                            extra_objects=["sw_align_0_lib/sw_align_0.a"],
+                           language="c++"
                            )
                  ]
       )
