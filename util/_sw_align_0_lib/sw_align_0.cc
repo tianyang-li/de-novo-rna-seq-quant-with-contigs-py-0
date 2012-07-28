@@ -25,13 +25,13 @@
 
 namespace sw_align_0 {
 
-void ReadContigPairSW(std::vector<AlignSeq> *reads,
-		std::vector<AlignSeq> *contigs) {
-	_ReadContigPairSW(*reads, *contigs);
+void SingleReadContigPairSWCPP(std::vector<SingleAlignSeq> *reads,
+		std::vector<SingleAlignSeq> *contigs) {
+	_SingleReadContigPairSWCPP(*reads, *contigs);
 }
 
-void _ReadContigPairSW(std::vector<AlignSeq> &reads,
-		std::vector<AlignSeq> &contigs) {
+void _SingleReadContigPairSWCPP(std::vector<SingleAlignSeq> &reads,
+		std::vector<SingleAlignSeq> &contigs) {
 
 }
 

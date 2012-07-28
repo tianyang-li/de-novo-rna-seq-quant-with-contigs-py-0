@@ -13,8 +13,32 @@
 #
 #  You should have received a copy of the GNU General Public License
 
+from Bio import SeqIO
+
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 
-from _sw_align_0 cimport AlignSeq
+cimport _sw_align_0
+from _sw_align_0 cimport SingleAlignSeq
+
+class SWAlign(object):
+    def __init__(self, s1_id, s1_start, s1_end,
+                 s2_id, s2_start, s2_end,
+                 align_str):
+        self.s1_id = s1_id
+        self.s1_start = s1_start
+        self.s1_end = s1_end
+        
+        self.s2_id = s2_id
+        self.s2_start = s2_start
+        self.s2_end = s2_end
+        
+        self.align_str = align_str
+
+cdef extern from "_sw_align_0_lib/sw_align_0.h" namespace "sw_align_0":
+    void SingleReadContigPairSWCPP(vector[SingleAlignSeq] * reads, vector[SingleAlignSeq] * contigs)
+
+def SingleReadContigPairSW(contig_file, read_file):
+    contig_seqs = []
+    read_seqs = []
 
