@@ -26,6 +26,6 @@ work/
 util/sw_align_0.c
 
 *.o
-
+*.a
 *.so
 
