@@ -39,6 +39,16 @@ cdef extern from "_sw_align_0_lib/sw_align_0.h" namespace "sw_align_0":
     void SingleReadContigPairSWCPP(vector[SingleAlignSeq] * reads, vector[SingleAlignSeq] * contigs)
 
 def SingleReadContigPairSW(contig_file, read_file):
-    contig_seqs = []
-    read_seqs = []
-
+    
+    def get_id_seq_tuple(fasta_file):
+        data_list = []
+        for rec in SeqIO.parse(fasta_file, 'fasta'):
+            data_list.append((rec.id, str(rec.seq)))
+    
+    contig_seqs = get_id_seq_tuple(contig_file)
+    read_seqs = get_id_seq_tuple(read_file) 
+    
+    
+    
+    
+    
