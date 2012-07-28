@@ -25,10 +25,13 @@
 extern "C" {
 #endif
 
+struct RawSeqAlign {
 
+};
+typedef struct RawSeqAlign RawSeqAlign;
 
 #ifdef __cplusplus
-}
+} // extern "C"
 #endif
 
 #endif  // SW_ALIGN_0_H_
