@@ -13,5 +13,8 @@
 #
 #  You should have received a copy of the GNU General Public License
 
-cdef extern from "sw_align_0_lib/sw_align_0.h" namespace "sw_align_0":
-    cdef cppclass AlignSeq
+from libcpp.string cimport string
+from libcpp.vector cimport vector
+
+from _sw_align_0 cimport AlignSeq
+
