@@ -19,11 +19,13 @@
 #ifndef SW_ALIGN_0_H_
 #define SW_ALIGN_0_H_
 
+#include <seqan/align.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "../seqan-1.3.1/seqan/align.h"
+
 
 #ifdef __cplusplus
 }
