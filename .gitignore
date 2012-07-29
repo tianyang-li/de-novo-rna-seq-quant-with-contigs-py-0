@@ -29,3 +29,5 @@ util/_sw_align_0.cpp
 *.a
 *.so
 
+test/learn/
+

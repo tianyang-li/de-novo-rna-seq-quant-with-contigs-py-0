@@ -26,8 +26,32 @@
 
 namespace sw_align_0 {
 
-class SingleSWAlgin {
+class SingleSWAlign {
 public:
+	SingleSWAlign(std::string s1_id_in, std::string s2_id_in) :
+			s1_id(s1_id_in), s2_id(s2_id_in) {
+	}
+
+	SingleSWAlign(SingleSWAlign const &x) :
+			s1_id(x.s1_id), s1_start(x.s1_start), s1_end(x.s1_end), s2_id(
+					x.s2_id), s2_start(x.s2_start), s2_end(x.s2_end) {
+	}
+
+	SingleSWAlign() {
+	}
+
+	SingleSWAlign &operator=(SingleSWAlign const &x) {
+		if (this != &x) {
+			s1_id = x.s1_id;
+			s1_start = x.s1_start;
+			s1_end = x.s1_end;
+			s2_id = x.s2_id;
+			s2_start = x.s2_start;
+			s2_end = x.s2_end;
+		}
+		return *this;
+	}
+
 	std::string s1_id;
 	int s1_start, s1_end;
 
@@ -37,22 +61,36 @@ public:
 	std::string aling_str;
 };
 
-class SingleAlignSeq {
+class SingleSeq {
 public:
-	SingleAlignSeq(std::string seq_in, std::string id_in) :
-			seq(seq_in), id(id_in) {
+	SingleSeq(std::string id_in, std::string seq_in) :
+			id(id_in), seq(seq_in) {
 	}
 
-	std::string seq; // 'A' 'C' 'G' 'T' only
+	SingleSeq(SingleSeq const &x) :
+			id(x.id), seq(x.seq) {
+	}
+
+	SingleSeq() {
+	}
+
+	SingleSeq &operator=(SingleSeq const &x) {
+		if (this != &x) {
+			id = x.id;
+			seq = x.seq;
+		}
+		return *this;
+	}
+
 	std::string id; // name
-	std::vector<SingleSWAlgin> aligns;
+	std::string seq; // 'A' 'C' 'G' 'T' only
 };
 
-void SingleReadContigPairSWCPP(std::vector<SingleAlignSeq> *reads,
-		std::vector<SingleAlignSeq> *contigs);
+void SingleReadContigPairSWCPP(std::vector<SingleSeq> *reads,
+		std::vector<SingleSeq> *contigs, std::vector<SingleSWAlign> *aligns);
 
-void _SingleReadContigPairSWCPP(std::vector<SingleAlignSeq> &reads,
-		std::vector<SingleAlignSeq> &contigs);
+void _SingleReadContigPairSWCPP(std::vector<SingleSeq> &reads,
+		std::vector<SingleSeq> &contigs, std::vector<SingleSWAlign> &aligns);
 
 }
 
