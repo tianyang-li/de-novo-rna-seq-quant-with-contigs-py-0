@@ -38,14 +38,24 @@ class SWAlign(object):
         
         self.align_str = align_str
 
+cdef convert_SWAlign(_sw_align_0.SingleSWAlign * x):
+    y = SWAlign(x.s1_id.c_str(), x.s1_start,
+                x.s1_end, x.s2_id.c_str(),
+                x.s2_start, x.s2_end,
+                x.align_str.c_str())
+    return y
+
 cdef extern from "_sw_align_0_lib/sw_align_0.h" namespace "sw_align_0":
-    void SingleReadContigPairSWCPP(vector[SingleSeq] * reads, vector[SingleSeq] * contigs, vector[_sw_align_0.SingleSWAlign] * aligns)
+    void SingleReadContigPairSWCPP(vector[SingleSeq] * reads,
+                                   vector[SingleSeq] * contigs,
+                                   vector[_sw_align_0.SingleSWAlign] * aligns)
 
 cdef void _get_read_id_seq(fasta_file, vector[SingleSeq] * contig_seqs_cpp):
     data_list = []
     for rec in SeqIO.parse(fasta_file, 'fasta'):
         rec_seq = str(rec.seq)
-        contig_seqs_cpp.push_back(SingleSeq(< string >< char *> rec.id, < string >< char *> rec_seq))
+        contig_seqs_cpp.push_back(SingleSeq(< string >< char *> rec.id,
+                                            < string >< char *> rec_seq))
 
 def SingleReadContigPairSW(contig_file, read_file):
 
@@ -57,7 +67,8 @@ def SingleReadContigPairSW(contig_file, read_file):
     
     cdef vector[_sw_align_0.SingleSWAlign] rc_aligns 
     
-    SingleReadContigPairSWCPP(& read_seqs_cpp, & contig_seqs_cpp, & rc_aligns)
+    SingleReadContigPairSWCPP(& read_seqs_cpp,
+                              & contig_seqs_cpp, & rc_aligns)
 
     
     

@@ -56,7 +56,7 @@ public:
 	std::string s2_id;
 	int s2_start, s2_end;
 
-	std::string aling_str;
+	std::string align_str;
 };
 
 class SingleSeq {
