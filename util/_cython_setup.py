@@ -29,7 +29,6 @@ setup(
                            extra_link_args=['-fPIC'] + seqan_cflags,
                            extra_compile_args=['-fPIC'] + seqan_cflags,
                            extra_objects=["_sw_align_0_lib/sw_align_0.a"],
-                           include_dirs=["seqan-1.3.1/"],
                            language="c++"
                            )
                  ]

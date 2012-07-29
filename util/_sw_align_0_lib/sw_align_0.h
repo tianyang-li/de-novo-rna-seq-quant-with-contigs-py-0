@@ -22,8 +22,6 @@
 #include <string>
 #include <vector>
 
-#include <seqan/align.h>
-
 namespace sw_align_0 {
 
 class SingleSWAlign {
