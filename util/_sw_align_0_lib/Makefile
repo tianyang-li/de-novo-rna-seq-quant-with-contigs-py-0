@@ -1,6 +1,11 @@
 CC = g++
-CFLAGS = -W -Wall -Wno-long-long -pedantic -Wno-variadic-macros -ggdb # remove debug
+
+CFLAGS = -W -Wall -Wno-long-long \
+-fPIC \
+-pedantic -Wno-variadic-macros -ggdb # remove debug
+
 LIBS = -lrt
+
 INC= -I../seqan-1.3.1
 
 all: sw_align_0.a

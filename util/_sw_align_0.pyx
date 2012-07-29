@@ -57,6 +57,7 @@ def SingleReadContigPairSW(contig_file, read_file):
     
     cdef vector[_sw_align_0.SingleSWAlign] rc_aligns 
     
+    SingleReadContigPairSWCPP(& read_seqs_cpp, & contig_seqs_cpp, & rc_aligns)
 
     
     

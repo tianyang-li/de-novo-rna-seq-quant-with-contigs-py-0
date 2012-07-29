@@ -4,5 +4,8 @@ LIBS = -lrt
 
 all:
 
+clean:
+
+.PHONY: clean
 
 
