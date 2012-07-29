@@ -26,8 +26,7 @@
 namespace sw_align_0 {
 
 void SingleReadContigPairSWCPP(std::vector<SingleSeq> *reads,
-		std::vector<SingleSeq> *contigs,
-		std::vector<SingleSWAlign> *aligns) {
+		std::vector<SingleSeq> *contigs, std::vector<SingleSWAlign> *aligns) {
 	_SingleReadContigPairSWCPP(*reads, *contigs, *aligns);
 }
 
