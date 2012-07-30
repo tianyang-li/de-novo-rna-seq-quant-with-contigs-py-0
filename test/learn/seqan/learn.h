@@ -4,6 +4,6 @@
 #ifndef LEARN_H_
 #define LEARN_H_
 
-#include <seqan/align.h>
+#include <seqan.h>
 
 #endif // LEARN_H_

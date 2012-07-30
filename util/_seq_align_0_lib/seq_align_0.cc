@@ -18,7 +18,7 @@
 
 #include <pthread.h>
 
-#include <seqan/align.h>
+#include <seqan.h>
 
 #include "seq_align_0.h"
 
