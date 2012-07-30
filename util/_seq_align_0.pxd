@@ -22,9 +22,11 @@ cdef extern from "_seq_align_0_lib/seq_align_0.h" namespace "seq_align_0":
     
         int s1_start, s1_end
         string s1_id
+        char s1_strand[2]
         
         int s2_start, s2_end
         string s2_id
+        char s2_strand[2]
         
         string align_str
     

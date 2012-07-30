@@ -25,23 +25,26 @@ cimport _seq_align_0
 from _seq_align_0 cimport SingleSeq
 
 class SWAlign(object):
-    def __init__(self, s1_id, s1_start, s1_end,
-                 s2_id, s2_start, s2_end,
+    def __init__(self, s1_id, s1_start, s1_end, s1_strand,
+                 s2_id, s2_start, s2_end, s2_strand,
                  align_str):
         self.s1_id = s1_id
         self.s1_start = s1_start
         self.s1_end = s1_end
+        self.s1_strand = s1_strand
         
         self.s2_id = s2_id
         self.s2_start = s2_start
         self.s2_end = s2_end
+        self.s2_strand = s2_strand
         
         self.align_str = align_str
 
 cdef convert_SWAlign(_seq_align_0.SingleAlign * x):
     y = SWAlign(x.s1_id.c_str(), x.s1_start,
-                x.s1_end, x.s2_id.c_str(),
-                x.s2_start, x.s2_end,
+                x.s1_end, x.s1_strand,
+                x.s2_id.c_str(),
+                x.s2_start, x.s2_end, x.s2_strand,
                 x.align_str.c_str())
     return y
 

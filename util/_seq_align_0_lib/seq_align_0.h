@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef seq_align_0_H_
-#define seq_align_0_H_
+#ifndef SEQ_ALIGN_0_H_
+#define SEQ_ALIGN_0_H_
 
 #include <string>
 #include <vector>
@@ -28,14 +28,18 @@ class SingleAlign {
 public:
 	SingleAlign(std::string s1_id_in, std::string s2_id_in) :
 			s1_id(s1_id_in), s2_id(s2_id_in) {
+		SetStrandNull();
 	}
 
 	SingleAlign(SingleAlign const &x) :
 			s1_id(x.s1_id), s1_start(x.s1_start), s1_end(x.s1_end), s2_id(
 					x.s2_id), s2_start(x.s2_start), s2_end(x.s2_end) {
+		CpStrand(x);
+		SetStrandNull();
 	}
 
 	SingleAlign() {
+		SetStrandNull();
 	}
 
 	SingleAlign &operator=(SingleAlign const &x) {
@@ -46,17 +50,31 @@ public:
 			s2_id = x.s2_id;
 			s2_start = x.s2_start;
 			s2_end = x.s2_end;
+			CpStrand(x);
 		}
 		return *this;
 	}
 
 	std::string s1_id;
 	int s1_start, s1_end;
+	char s1_strand[2]; // '+' 5' -> 3'; '-' reverse_complement(5' -> 3')
 
 	std::string s2_id;
 	int s2_start, s2_end;
+	char s2_strand[2]; // '+' 5' -> 3'; '-' reverse_complement(5' -> 3')
 
 	std::string align_str;
+
+private:
+	void SetStrandNull() {
+		s1_strand[1] = '\0';
+		s2_strand[1] = '\0';
+	}
+
+	void CpStrand(SingleAlign const &x) {
+		s1_strand[0] = x.s1_strand[0];
+		s2_strand[0] = x.s2_strand[0];
+	}
 };
 
 class SingleSeq {
@@ -91,8 +109,7 @@ void _SingleReadContigPairSWCPP(std::vector<SingleSeq> const &reads,
 		std::vector<SingleSeq> const &contigs,
 		std::vector<SingleAlign> &aligns);
 
-SingleAlign DoSingleAlign(SingleSeq const &a, SingleSeq const &b);
-
 }
 
-#endif  // seq_align_0_H_
+#endif  // SEQ_ALIGN_0_H_
+
