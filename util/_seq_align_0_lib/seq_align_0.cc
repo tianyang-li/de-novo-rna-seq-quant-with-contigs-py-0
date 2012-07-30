@@ -35,7 +35,7 @@ void _SingleReadContigPairSWCPP(std::vector<SingleSeq> &reads,
 }
 
 SingleAlign DoSingleAlign(SingleSeq const &a, SingleSeq const &b) {
-	seqan::Align<seqan::String<char> > al;
+	seqan::Align<seqan::String<seqan::Dna> > al;
 	seqan::String<seqan::Dna> a_seq(a.seq);
 	seqan::String<seqan::Dna> b_seq(b.seq);
 	SingleAlign align(a.id, b.id);

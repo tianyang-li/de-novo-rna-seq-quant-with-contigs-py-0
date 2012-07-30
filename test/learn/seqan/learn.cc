@@ -3,10 +3,13 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
 
 #include "learn.h"
 
 int main(int argc, char **argv) {
+	seqan::String<seqan::Dna> s1 = "ACcgtACGT";
+	std::cout << s1 << std::endl;
 	return 0;
 }
 
