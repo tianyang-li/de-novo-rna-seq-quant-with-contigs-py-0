@@ -16,29 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SW_ALIGN_0_H_
-#define SW_ALIGN_0_H_
+#ifndef seq_align_0_H_
+#define seq_align_0_H_
 
 #include <string>
 #include <vector>
 
-namespace sw_align_0 {
+namespace seq_align_0 {
 
-class SingleSWAlign {
+class SingleAlign {
 public:
-	SingleSWAlign(std::string s1_id_in, std::string s2_id_in) :
+	SingleAlign(std::string s1_id_in, std::string s2_id_in) :
 			s1_id(s1_id_in), s2_id(s2_id_in) {
 	}
 
-	SingleSWAlign(SingleSWAlign const &x) :
+	SingleAlign(SingleAlign const &x) :
 			s1_id(x.s1_id), s1_start(x.s1_start), s1_end(x.s1_end), s2_id(
 					x.s2_id), s2_start(x.s2_start), s2_end(x.s2_end) {
 	}
 
-	SingleSWAlign() {
+	SingleAlign() {
 	}
 
-	SingleSWAlign &operator=(SingleSWAlign const &x) {
+	SingleAlign &operator=(SingleAlign const &x) {
 		if (this != &x) {
 			s1_id = x.s1_id;
 			s1_start = x.s1_start;
@@ -85,11 +85,14 @@ public:
 };
 
 void SingleReadContigPairSWCPP(std::vector<SingleSeq> *reads,
-		std::vector<SingleSeq> *contigs, std::vector<SingleSWAlign> *aligns);
+		std::vector<SingleSeq> *contigs, std::vector<SingleAlign> *aligns);
 
-void _SingleReadContigPairSWCPP(std::vector<SingleSeq> &reads,
-		std::vector<SingleSeq> &contigs, std::vector<SingleSWAlign> &aligns);
+void _SingleReadContigPairSWCPP(std::vector<SingleSeq> const &reads,
+		std::vector<SingleSeq> const &contigs,
+		std::vector<SingleAlign> &aligns);
+
+SingleAlign DoSingleAlign(SingleSeq const &a, SingleSeq const &b);
 
 }
 
-#endif  // SW_ALIGN_0_H_
+#endif  // seq_align_0_H_

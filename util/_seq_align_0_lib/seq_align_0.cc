@@ -16,25 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cstdio>
-#include <cstdlib>
-
 #include <pthread.h>
 
 #include <seqan/align.h>
 
-#include "sw_align_0.h"
+#include "seq_align_0.h"
 
-namespace sw_align_0 {
+namespace seq_align_0 {
 
 void SingleReadContigPairSWCPP(std::vector<SingleSeq> *reads,
-		std::vector<SingleSeq> *contigs, std::vector<SingleSWAlign> *aligns) {
+		std::vector<SingleSeq> *contigs, std::vector<SingleAlign> *aligns) {
 	_SingleReadContigPairSWCPP(*reads, *contigs, *aligns);
 }
 
 void _SingleReadContigPairSWCPP(std::vector<SingleSeq> &reads,
-		std::vector<SingleSeq> &contigs, std::vector<SingleSWAlign> &aligns) {
+		std::vector<SingleSeq> &contigs, std::vector<SingleAlign> &aligns) {
 
+}
+
+SingleAlign DoSingleAlign(SingleSeq const &a, SingleSeq const &b) {
+	SingleAlign align(a.id, b.id);
+	return align;
 }
 
 }

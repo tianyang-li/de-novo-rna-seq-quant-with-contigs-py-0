@@ -23,12 +23,12 @@ seqan_cflags = ['-W', '-Wall', '-Wno-long-long',
 
 setup(
     cmdclass={'build_ext': build_ext},
-    ext_modules=[Extension("sw_align_0",
-                           ["_sw_align_0.pyx"],
+    ext_modules=[Extension("seq_align_0",
+                           ["_seq_align_0.pyx"],
                            libraries=[] + seqan_libs,
                            extra_link_args=['-fPIC'] + seqan_cflags,
                            extra_compile_args=['-fPIC'] + seqan_cflags,
-                           extra_objects=["_sw_align_0_lib/sw_align_0.a"],
+                           extra_objects=["_seq_align_0_lib/seq_align_0.a"],
                            language="c++"
                            )
                  ]

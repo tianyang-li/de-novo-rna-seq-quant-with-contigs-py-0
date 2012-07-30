@@ -16,9 +16,9 @@
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 
-cdef extern from "_sw_align_0_lib/sw_align_0.h" namespace "sw_align_0":
-    cdef cppclass SingleSWAlign:
-        SingleSWAlign(string, string) except +
+cdef extern from "_seq_align_0_lib/seq_align_0.h" namespace "seq_align_0":
+    cdef cppclass SingleAlign:
+        SingleAlign(string, string) except +
     
         int s1_start, s1_end
         string s1_id
