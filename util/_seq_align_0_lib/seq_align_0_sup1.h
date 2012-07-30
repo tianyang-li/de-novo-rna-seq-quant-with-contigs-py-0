@@ -58,7 +58,7 @@ public:
 	seqan::String<seqan::Dna> seq;
 };
 
-void DoSingleAlign(_SingleSeq const &a, _SingleSeq const &b,
+void DoSingleGlocalAlign(_SingleSeq const &a, _SingleSeq const &b,
 		std::vector<SingleAlign> &aligns);
 
 void ConvertSingleSeqVector(std::vector<SingleSeq> const &contigs,

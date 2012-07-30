@@ -102,10 +102,10 @@ public:
 	std::string seq; // 'A' 'C' 'G' 'T' only
 };
 
-void SingleReadContigPairSWCPP(std::vector<SingleSeq> *reads,
+void SingleReadContigPairCPP(std::vector<SingleSeq> *reads,
 		std::vector<SingleSeq> *contigs, std::vector<SingleAlign> *aligns);
 
-void _SingleReadContigPairSWCPP(std::vector<SingleSeq> const &reads,
+void _SingleReadContigPairCPP(std::vector<SingleSeq> const &reads,
 		std::vector<SingleSeq> const &contigs,
 		std::vector<SingleAlign> &aligns);
 

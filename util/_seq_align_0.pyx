@@ -51,7 +51,7 @@ cdef convert_SingleAlign(_seq_align_0.SingleAlign * x):
     return y
 
 cdef extern from "_seq_align_0_lib/seq_align_0.h" namespace "seq_align_0":
-    void SingleReadContigPairSWCPP(vector[SingleSeq] * reads,
+    void SingleReadContigPairCPP(vector[SingleSeq] * reads,
                                    vector[SingleSeq] * contigs,
                                    vector[_seq_align_0.SingleAlign] * aligns)
 
@@ -72,9 +72,10 @@ def SingleReadContigPairAlign(contig_file, read_file):
     
     cdef vector[_seq_align_0.SingleAlign] rc_aligns 
     
-    SingleReadContigPairSWCPP(& read_seqs_cpp,
+    SingleReadContigPairCPP(& read_seqs_cpp,
                               & contig_seqs_cpp, & rc_aligns)
     
+    #TODO: not a list
     test1 = []
     cdef vector[_seq_align_0.SingleAlign].iterator i = rc_aligns.begin()
     cdef _seq_align_0.SingleAlign cur_align

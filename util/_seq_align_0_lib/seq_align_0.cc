@@ -16,8 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <pthread.h>
-
 #include <seqan.h>
 
 #include "seq_align_0.h"
@@ -25,15 +23,17 @@
 
 namespace seq_align_0 {
 
-void SingleReadContigPairSWCPP(std::vector<SingleSeq> *reads,
+void SingleReadContigPairCPP(std::vector<SingleSeq> *reads,
 		std::vector<SingleSeq> *contigs, std::vector<SingleAlign> *aligns) {
-	_SingleReadContigPairSWCPP(*reads, *contigs, *aligns);
+	_SingleReadContigPairCPP(*reads, *contigs, *aligns);
 }
 
-void _SingleReadContigPairSWCPP(std::vector<SingleSeq> &reads,
+void _SingleReadContigPairCPP(std::vector<SingleSeq> &reads,
 		std::vector<SingleSeq> &contigs, std::vector<SingleAlign> &aligns) {
+
 	std::vector<_SingleSeq> _contigs;
 	ConvertSingleSeqVector(contigs, _contigs);
+
 	std::vector<_SingleSeq> _reads;
 	ConvertSingleSeqVector(reads, _reads);
 

@@ -16,11 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <pthread.h>
+
 #include "seq_align_0_sup1.h"
 
 namespace seq_align_0 {
 
-void DoSingleAlign(_SingleSeq const &a, _SingleSeq const &b,
+void DoSingleGlocalAlign(_SingleSeq const &a, _SingleSeq const &b,
 		std::vector<SingleAlign> &aligns) {
 }
 
@@ -31,6 +33,8 @@ void ConvertSingleSeqVector(std::vector<SingleSeq> const &contigs,
 		contigs_.push_back(_SingleSeq(*i));
 	}
 }
+
+
 
 }
 
