@@ -5,8 +5,7 @@ util/_seq_align_0.pyx util/_cython_setup.py \
 util/_seq_align_0.pxd \
 seq_align_0.a
 	
-	cd util && rm -rf _seq_align_0.cpp \
-	&& python _cython_setup.py build_ext --inplace 
+	cd util && python _cython_setup.py build_ext --inplace 
 
 seq_align_0.a: 
 	cd util/_seq_align_0_lib/ && $(MAKE)
