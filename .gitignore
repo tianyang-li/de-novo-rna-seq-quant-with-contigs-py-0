@@ -23,7 +23,7 @@ work/
 
 .~*
 
-util/_sw_align_0.cpp
+util/_seq_align_0.cpp
 
 *.o
 *.a
