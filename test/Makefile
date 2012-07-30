@@ -1,10 +1,8 @@
-CC = g++
-CFLAGS = -W -Wall -Wno-long-long -pedantic -Wno-variadic-macros -ggdb
-LIBS = -lrt
-
 all:
+	cd learn && $(MAKE)
 
 clean:
+	cd learn && $(MAKE) clean
 
 .PHONY: clean
 

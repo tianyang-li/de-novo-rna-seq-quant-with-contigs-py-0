@@ -53,7 +53,7 @@ cdef extern from "_seq_align_0_lib/seq_align_0.h" namespace "seq_align_0":
 cdef void _get_read_id_seq(fasta_file, vector[SingleSeq] * contig_seqs_cpp):
     data_list = []
     for rec in SeqIO.parse(fasta_file, 'fasta'):
-        rec_seq = str(rec.seq)
+        rec_seq = str(rec.seq).upper()
         contig_seqs_cpp.push_back(SingleSeq(< string >< char *> rec.id,
                                             < string >< char *> rec_seq))
 
