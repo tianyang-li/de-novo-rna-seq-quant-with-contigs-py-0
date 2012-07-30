@@ -29,4 +29,6 @@ util/_seq_align_0.cpp
 *.a
 *.so
 
+test/learn/cython/learn.cpp
+test/learn/seqan/learn
 
