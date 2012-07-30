@@ -36,6 +36,8 @@ void _SingleReadContigPairSWCPP(std::vector<SingleSeq> &reads,
 	ConvertSingleSeqVector(contigs, _contigs);
 	std::vector<_SingleSeq> _reads;
 	ConvertSingleSeqVector(reads, _reads);
+
+
 }
 
 }

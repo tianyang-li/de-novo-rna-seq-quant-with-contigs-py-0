@@ -6,7 +6,7 @@ util/_seq_align_0.pxd \
 seq_align_0.a
 	
 	cd util && python _cython_setup.py build_ext --inplace 
-
+	
 seq_align_0.a: 
 	cd util/_seq_align_0_lib/ && $(MAKE)
 

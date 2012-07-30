@@ -19,6 +19,7 @@ from libcpp.vector cimport vector
 cdef extern from "_seq_align_0_lib/seq_align_0.h" namespace "seq_align_0":
     cdef cppclass SingleAlign:
         SingleAlign(string, string) except +
+        SingleAlign() except +
     
         int s1_start, s1_end
         string s1_id

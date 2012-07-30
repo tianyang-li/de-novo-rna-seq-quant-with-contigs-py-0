@@ -21,10 +21,12 @@ from Bio import SeqIO
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 
+from cython.operator cimport dereference as deref, preincrement as inc
+
 cimport _seq_align_0
 from _seq_align_0 cimport SingleSeq
 
-class SWAlign(object):
+class SingleAlign(object):
     def __init__(self, s1_id, s1_start, s1_end, s1_strand,
                  s2_id, s2_start, s2_end, s2_strand,
                  align_str):
@@ -40,8 +42,8 @@ class SWAlign(object):
         
         self.align_str = align_str
 
-cdef convert_SWAlign(_seq_align_0.SingleAlign * x):
-    y = SWAlign(x.s1_id.c_str(), x.s1_start,
+cdef convert_SingleAlign(_seq_align_0.SingleAlign * x):
+    y = SingleAlign(x.s1_id.c_str(), x.s1_start,
                 x.s1_end, x.s1_strand,
                 x.s2_id.c_str(),
                 x.s2_start, x.s2_end, x.s2_strand,
@@ -60,7 +62,7 @@ cdef void _get_read_id_seq(fasta_file, vector[SingleSeq] * contig_seqs_cpp):
         contig_seqs_cpp.push_back(SingleSeq(< string >< char *> rec.id,
                                             < string >< char *> rec_seq))
 
-def SingleReadContigPairSW(contig_file, read_file):
+def SingleReadContigPairAlign(contig_file, read_file):
 
     cdef vector[SingleSeq] contig_seqs_cpp
     _get_read_id_seq(contig_file, & contig_seqs_cpp)
@@ -72,6 +74,13 @@ def SingleReadContigPairSW(contig_file, read_file):
     
     SingleReadContigPairSWCPP(& read_seqs_cpp,
                               & contig_seqs_cpp, & rc_aligns)
-
+    
+    test1 = []
+    cdef vector[_seq_align_0.SingleAlign].iterator i = rc_aligns.begin()
+    cdef _seq_align_0.SingleAlign cur_align
+    while i != rc_aligns.end():
+        cur_align = deref(i)
+        test1.append(convert_SingleAlign(& cur_align))
+        inc(i)
     
     
