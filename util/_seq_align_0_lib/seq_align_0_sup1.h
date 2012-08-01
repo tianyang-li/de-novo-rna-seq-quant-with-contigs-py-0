@@ -28,49 +28,11 @@
 
 namespace seq_align_0 {
 
-class _SingleSeq {
-public:
-	_SingleSeq() {
-	}
-
-	_SingleSeq(SingleSeq const &x) :
-			id(x.id), seq(x.seq) {
-	}
-
-	_SingleSeq(std::string const &id_in,
-			seqan::String<seqan::Dna> const &seq_in) :
-			id(id_in), seq(seq_in) {
-	}
-
-	_SingleSeq(_SingleSeq const &x) :
-			id(x.id), seq(x.seq) {
-	}
-
-	inline _SingleSeq &operator=(_SingleSeq const &x) {
-		if (this != &x) {
-			id = x.id;
-			seq = x.seq;
-		}
-		return *this;
-	}
-
-	std::string id;
-	seqan::String<seqan::Dna> seq;
-};
-
-inline void DoSingleAlign(_SingleSeq const &a, _SingleSeq const &b,
+inline void DoSingleAlign(SingleSeq const &a, SingleSeq const &b,
 		std::vector<SingleAlign> &aligns) {
 	seqan::String<seqan::Dna> a_rc = a.seq;
 	seqan::reverseComplement(a_rc);
 	seqan::Align<seqan::String<seqan::Dna> > align;
-}
-
-inline void ConvertSingleSeqVector(std::vector<SingleSeq> const &contigs,
-		std::vector<_SingleSeq> &contigs_) {
-	for (std::vector<SingleSeq>::const_iterator i = contigs.begin();
-			i != contigs.end(); ++i) {
-		contigs_.push_back(_SingleSeq(*i));
-	}
 }
 
 }

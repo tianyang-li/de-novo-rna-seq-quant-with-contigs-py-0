@@ -31,13 +31,6 @@ void SingleReadContigPairCPP(std::vector<SingleSeq> *reads,
 void _SingleReadContigPairCPP(std::vector<SingleSeq> &reads,
 		std::vector<SingleSeq> &contigs, std::vector<SingleAlign> &aligns) {
 
-	std::vector<_SingleSeq> _contigs;
-	ConvertSingleSeqVector(contigs, _contigs);
-
-	std::vector<_SingleSeq> _reads;
-	ConvertSingleSeqVector(reads, _reads);
-
-
 }
 
 }
