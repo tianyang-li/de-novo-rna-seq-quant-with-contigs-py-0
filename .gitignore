@@ -32,3 +32,5 @@ util/_seq_align_0.cpp
 test/learn/cython/learn.cpp
 test/learn/seqan/learn
 
+test/learn/seqan/alignment_local*
+
