@@ -30,10 +30,10 @@ namespace seq_align_0 {
 
 inline int Do2StringSW(std::string const &a, std::string const &b,
 		seqan::Align<seqan::String<seqan::Dna> > &align,
-		seqan::Score<int> const &score) {
+		seqan::Score<int> const &score, seqan::LocalAlignmentFinder<>) {
 	seqan::appendValue(seqan::rows(align), a);
 	seqan::appendValue(seqan::rows(align), b);
-	return seqan::localAlignment(align, score, seqan::SmithWaterman());
+	return seqan::localAlignment(align, score, finder, seqan::SmithWaterman());
 }
 
 inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
@@ -45,12 +45,14 @@ inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 	// seqan::Score<int> score(2, -5, -6, -2);
 
 	seqan::Align<seqan::String<seqan::Dna> > align_pp;
-	Do2StringSW(a.seq, b.seq, align_pp, score);
+	seqan::LocalAlignmentFinder<> finder_pp(align_pp);
+	Do2StringSW(a.seq, b.seq, align_pp, score, finder_pp);
 
 	std::string a_rc = a.seq;
 	seqan::reverseComplement(a_rc);
 	seqan::Align<seqan::String<seqan::Dna> > align_mp;
-	Do2StringSW(a_rc, b.seq, align_mp, score);
+	seqan::LocalAlignmentFinder<> finder_mp(align_mp);
+	Do2StringSW(a_rc, b.seq, align_mp, score, finder_mp);
 
 }
 
