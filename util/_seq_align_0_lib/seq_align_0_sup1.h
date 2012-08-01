@@ -28,11 +28,30 @@
 
 namespace seq_align_0 {
 
-inline void DoSingleAlign(SingleSeq const &a, SingleSeq const &b,
+inline int Do2StringSW(std::string const &a, std::string const &b,
+		seqan::Align<seqan::String<seqan::Dna> > &align,
+		seqan::Score<int> const &score) {
+	seqan::appendValue(seqan::rows(align), a);
+	seqan::appendValue(seqan::rows(align), b);
+	return seqan::localAlignment(align, score, seqan::SmithWaterman());
+}
+
+inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 		std::vector<SingleAlign> &aligns) {
-	seqan::String<seqan::Dna> a_rc = a.seq;
+	// phrep
+	seqan::Score<int> score(1, -2, -4, -3);
+
+	// pcap
+	// seqan::Score<int> score(2, -5, -6, -2);
+
+	seqan::Align<seqan::String<seqan::Dna> > align_pp;
+	Do2StringSW(a.seq, b.seq, align_pp, score);
+
+	std::string a_rc = a.seq;
 	seqan::reverseComplement(a_rc);
-	seqan::Align<seqan::String<seqan::Dna> > align;
+	seqan::Align<seqan::String<seqan::Dna> > align_mp;
+	Do2StringSW(a_rc, b.seq, align_mp, score);
+
 }
 
 }
