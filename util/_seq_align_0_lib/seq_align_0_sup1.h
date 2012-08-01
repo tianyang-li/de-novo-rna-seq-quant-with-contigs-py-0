@@ -46,7 +46,7 @@ public:
 			id(x.id), seq(x.seq) {
 	}
 
-	_SingleSeq &operator=(_SingleSeq const &x) {
+	inline _SingleSeq &operator=(_SingleSeq const &x) {
 		if (this != &x) {
 			id = x.id;
 			seq = x.seq;
@@ -58,11 +58,19 @@ public:
 	seqan::String<seqan::Dna> seq;
 };
 
-void DoSingleGlocalAlign(_SingleSeq const &a, _SingleSeq const &b,
-		std::vector<SingleAlign> &aligns);
+inline void DoSingleAlign(_SingleSeq const &a, _SingleSeq const &b,
+		std::vector<SingleAlign> &aligns) {
+	seqan::String<seqan::Dna> a_rc = a.seq;
+	seqan::reverseComplement(a_rc);
+}
 
-void ConvertSingleSeqVector(std::vector<SingleSeq> const &contigs,
-		std::vector<_SingleSeq> &contigs_);
+inline void ConvertSingleSeqVector(std::vector<SingleSeq> const &contigs,
+		std::vector<_SingleSeq> &contigs_) {
+	for (std::vector<SingleSeq>::const_iterator i = contigs.begin();
+			i != contigs.end(); ++i) {
+		contigs_.push_back(_SingleSeq(*i));
+	}
+}
 
 }
 

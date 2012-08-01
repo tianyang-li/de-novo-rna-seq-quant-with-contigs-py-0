@@ -42,7 +42,7 @@ public:
 		SetStrandNull();
 	}
 
-	SingleAlign &operator=(SingleAlign const &x) {
+	inline SingleAlign &operator=(SingleAlign const &x) {
 		if (this != &x) {
 			s1_id = x.s1_id;
 			s1_start = x.s1_start;
@@ -90,7 +90,7 @@ public:
 	SingleSeq() {
 	}
 
-	SingleSeq &operator=(SingleSeq const &x) {
+	inline SingleSeq &operator=(SingleSeq const &x) {
 		if (this != &x) {
 			id = x.id;
 			seq = x.seq;

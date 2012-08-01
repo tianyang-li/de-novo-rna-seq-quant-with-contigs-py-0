@@ -22,19 +22,5 @@
 
 namespace seq_align_0 {
 
-void DoSingleGlocalAlign(_SingleSeq const &a, _SingleSeq const &b,
-		std::vector<SingleAlign> &aligns) {
-}
-
-void ConvertSingleSeqVector(std::vector<SingleSeq> const &contigs,
-		std::vector<_SingleSeq> &contigs_) {
-	for (std::vector<SingleSeq>::const_iterator i = contigs.begin();
-			i != contigs.end(); ++i) {
-		contigs_.push_back(_SingleSeq(*i));
-	}
-}
-
-
-
 }
 
