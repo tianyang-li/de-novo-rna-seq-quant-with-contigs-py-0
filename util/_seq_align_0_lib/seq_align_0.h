@@ -105,11 +105,6 @@ public:
 void SingleReadContigPairCPP(std::vector<SingleSeq> *reads,
 		std::vector<SingleSeq> *contigs, std::vector<SingleAlign> *aligns);
 
-void _SingleReadContigPairCPP(std::vector<SingleSeq> const &reads,
-		std::vector<SingleSeq> const &contigs,
-		std::vector<SingleAlign> &aligns);
-
-}
+} // namespace seq_align_0
 
 #endif  // SEQ_ALIGN_0_H_
-

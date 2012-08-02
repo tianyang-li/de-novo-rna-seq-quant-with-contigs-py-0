@@ -12,6 +12,6 @@ alignment_local: alignment_local.cpp
 	$(CC) $(CFLAGS) $(LIBS) $(INC) alignment_local.cpp -o alignment_local 
 
 clean:
-	rm -rfv learn
+	rm -rfv learn alignment_local
 
 .PHONY: clean

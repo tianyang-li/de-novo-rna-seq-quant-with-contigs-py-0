@@ -37,6 +37,12 @@ inline int Do2StringSW(std::string const &a, std::string const &b,
 	return seqan::localAlignment(align, score, seqan::SmithWaterman());
 }
 
+inline bool KeepAlign(std::string const &a_seq, std::string const &b_seq,
+		std::vector<SingleAlign> &aligns,
+		seqan::Align<seqan::String<seqan::Dna> > &align) {
+	return true;
+}
+
 inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 		std::vector<SingleAlign> &aligns) {
 	seqan::Score<int> score(1, -2, -4, -3);
@@ -44,15 +50,22 @@ inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 	seqan::Align<seqan::String<seqan::Dna> > align_pp;
 	seqan::LocalAlignmentFinder<> finder_pp(align_pp);
 	Do2StringSW(a.seq, b.seq, align_pp, score);
+	KeepAlign(a.seq, b.seq, aligns, align_pp);
 
 	std::string a_rc = a.seq;
 	seqan::reverseComplement(a_rc);
 	seqan::Align<seqan::String<seqan::Dna> > align_mp;
 	seqan::LocalAlignmentFinder<> finder_mp(align_mp);
 	Do2StringSW(a_rc, b.seq, align_mp, score);
+	KeepAlign(a_rc, b.seq, aligns, align_mp);
 
 }
 
+inline void _SingleReadContigPairCPP(std::vector<SingleSeq> &reads,
+		std::vector<SingleSeq> &contigs, std::vector<SingleAlign> &aligns) {
+
 }
+
+} // namespace seq_align_0
 
 #endif // SEQ_ALIGN_0_SUP1_H_

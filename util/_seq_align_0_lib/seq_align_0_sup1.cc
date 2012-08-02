@@ -22,5 +22,5 @@
 
 namespace seq_align_0 {
 
-}
+} // namespace seq_align_0
 

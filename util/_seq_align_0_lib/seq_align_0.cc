@@ -28,10 +28,6 @@ void SingleReadContigPairCPP(std::vector<SingleSeq> *reads,
 	_SingleReadContigPairCPP(*reads, *contigs, *aligns);
 }
 
-void _SingleReadContigPairCPP(std::vector<SingleSeq> &reads,
-		std::vector<SingleSeq> &contigs, std::vector<SingleAlign> &aligns) {
+} // namespace seq_align_0
 
-}
-
-}
 
