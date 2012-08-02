@@ -56,11 +56,11 @@ public:
 	}
 
 	std::string s1_id;
-	int s1_start, s1_end;
+	int s1_start, s1_end; // python convention
 	char s1_strand[2]; // '+' 5' -> 3'; '-' reverse_complement(5' -> 3')
 
 	std::string s2_id;
-	int s2_start, s2_end;
+	int s2_start, s2_end; // python convention
 	char s2_strand[2]; // '+' 5' -> 3'; '-' reverse_complement(5' -> 3')
 
 	std::string align_str;
