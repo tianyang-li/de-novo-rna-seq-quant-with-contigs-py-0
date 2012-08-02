@@ -21,6 +21,7 @@
 
 #include <string>
 #include <vector>
+#include <cstddef>
 
 #include <seqan.h>
 
@@ -38,11 +39,7 @@ inline int Do2StringSW(std::string const &a, std::string const &b,
 
 inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 		std::vector<SingleAlign> &aligns) {
-	// phrep
 	seqan::Score<int> score(1, -2, -4, -3);
-
-	// pcap
-	// seqan::Score<int> score(2, -5, -6, -2);
 
 	seqan::Align<seqan::String<seqan::Dna> > align_pp;
 	seqan::LocalAlignmentFinder<> finder_pp(align_pp);
