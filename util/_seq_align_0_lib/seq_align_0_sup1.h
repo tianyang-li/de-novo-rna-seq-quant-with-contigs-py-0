@@ -30,17 +30,30 @@
 
 namespace seq_align_0 {
 
-inline int Do2StringSW(std::string const &a, std::string const &b,
+inline bool Do2StringSW(std::string const &a, std::string const &b,
 		seqan::Align<seqan::String<seqan::Dna> > &align,
-		seqan::Score<int> const &score) {
+		seqan::Score<int> const &score,
+		int score_th = 10 /* threshold for SW score */) {
 	seqan::appendValue(seqan::rows(align), a);
 	seqan::appendValue(seqan::rows(align), b);
-	return seqan::localAlignment(align, score, seqan::SmithWaterman());
+	int sw_score = seqan::localAlignment(align, score, seqan::SmithWaterman());
+	if (sw_score > score_th) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 inline bool End2AlignRelativePos(size_t seq_len, size_t align_start,
-		size_t align_end) {
-	return false;
+		size_t align_end, float ratio = 0.15) {
+	// return true if the end or start of the sequence
+	// is within ratio * seq_len of
+	// the start or the end of the alignment
+	size_t flank_len = ratio * seq_len;
+	if (flank_len < align_start && align_end + flank_len < seq_len) {
+		return false;
+	}
+	return true;
 }
 
 inline bool Keep2StringAlign(std::string const &a_seq, std::string const &b_seq,
@@ -53,6 +66,10 @@ inline bool Keep2StringAlign(std::string const &a_seq, std::string const &b_seq,
 	size_t a_end = seqan::clippedEndPosition(seqan::row(align, 0));
 	size_t b_start = seqan::clippedBeginPosition(seqan::row(align, 1));
 	size_t b_end = seqan::clippedEndPosition(seqan::row(align, 1));
+	if (!End2AlignRelativePos(a_seq.length(), a_start, a_end)
+			and !End2AlignRelativePos(b_seq.length(), b_start, b_end)) {
+		return false;
+	}
 	return true;
 }
 
@@ -62,15 +79,23 @@ inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 
 	seqan::Align<seqan::String<seqan::Dna> > align_pp;
 	seqan::LocalAlignmentFinder<> finder_pp(align_pp);
-	Do2StringSW(a.seq, b.seq, align_pp, score);
-	Keep2StringAlign(a.seq, b.seq, aligns, align_pp, true);
+
+	// 10 is the score when there are exactly 10 overlapping
+	// matches
+	if (Do2StringSW(a.seq, b.seq, align_pp, score)) {
+		Keep2StringAlign(a.seq, b.seq, aligns, align_pp, true);
+	}
 
 	std::string a_rc = a.seq;
 	seqan::reverseComplement(a_rc);
 	seqan::Align<seqan::String<seqan::Dna> > align_mp;
 	seqan::LocalAlignmentFinder<> finder_mp(align_mp);
-	Do2StringSW(a_rc, b.seq, align_mp, score);
-	Keep2StringAlign(a_rc, b.seq, aligns, align_mp, false);
+
+	// 10 is the score when there are exactly 10 overlapping
+	// matches
+	if (Do2StringSW(a_rc, b.seq, align_mp, score)) {
+		Keep2StringAlign(a_rc, b.seq, aligns, align_mp, false);
+	}
 
 }
 
