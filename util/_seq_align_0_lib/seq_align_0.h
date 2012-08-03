@@ -64,6 +64,11 @@ public:
 	char s2_strand[2]; // '+' 5' -> 3'; '-' reverse_complement(5' -> 3')
 
 	std::string align_str;
+	// format
+	// M - match
+	// [ - gap in s1
+	// ] - gap in s2
+	// % - match
 
 private:
 	void SetStrandNull() {

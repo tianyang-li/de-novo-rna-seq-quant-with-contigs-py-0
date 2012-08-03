@@ -4,6 +4,7 @@ all:
 
 clean:
 	cd learn && $(MAKE) clean
+	cd cc_test && $(MAKE) clean
 
 .PHONY: clean
 

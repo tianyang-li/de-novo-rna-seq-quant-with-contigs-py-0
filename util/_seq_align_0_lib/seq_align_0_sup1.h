@@ -56,12 +56,41 @@ inline bool End2AlignRelativePos(size_t seq_len, size_t align_start,
 	return true;
 }
 
-inline bool Keep2StringAlign(std::string const &a_seq, std::string const &b_seq,
+inline void AlignStrSingleAlign(std::string &align_str,
+		seqan::Align<seqan::String<seqan::Dna> > &align) {
+	// get align_str for align
+
+	// std::string align_str;
+	// format
+	// M - match
+	// [ - gap in s1
+	// ] - gap in s2
+	// % - match
+
+	seqan::Iterator<
+			seqan::Row<seqan::Align<seqan::String<seqan::Dna>, seqan::ArrayGaps> >::Type>::Type s1_it =
+			seqan::iter(seqan::row(align, 0), 0);
+	seqan::Iterator<
+			seqan::Row<seqan::Align<seqan::String<seqan::Dna>, seqan::ArrayGaps> >::Type>::Type s2_it =
+			seqan::iter(seqan::row(align, 1), 0);
+
+	size_t align_len = seqan::length(seqan::row(align, 0));
+
+	for (size_t i = 0; i != align_len; ++i) {
+		++s1_it;
+		++s2_it;
+	}
+
+}
+
+inline bool Keep2StringAlign(std::string const &a_id, std::string const &a_seq,
+		std::string const &b_id, std::string const &b_seq,
 		std::vector<SingleAlign> &aligns,
 		seqan::Align<seqan::String<seqan::Dna> > &align, bool strand_dir) {
 	// bool strand_dir
 	// true: a+b+
 	// false: a-b+
+
 	size_t a_start = seqan::clippedBeginPosition(seqan::row(align, 0));
 	size_t a_end = seqan::clippedEndPosition(seqan::row(align, 0));
 	size_t b_start = seqan::clippedBeginPosition(seqan::row(align, 1));
@@ -70,6 +99,24 @@ inline bool Keep2StringAlign(std::string const &a_seq, std::string const &b_seq,
 			and !End2AlignRelativePos(b_seq.length(), b_start, b_end)) {
 		return false;
 	}
+
+	SingleAlign result;
+	result.s1_id = a_id;
+	result.s1_start = a_start;
+	result.s1_end = a_end;
+	result.s2_id = b_id;
+	result.s2_start = b_start;
+	result.s2_end = b_end;
+	if (strand_dir) {
+		result.s1_strand[0] = '+';
+		result.s2_strand[0] = '+';
+	} else {
+		result.s1_strand[0] = '-';
+		result.s2_strand[0] = '+';
+	}
+	AlignStrSingleAlign(result.align_str, align);
+
+	aligns.push_back(result);
 	return true;
 }
 
@@ -78,23 +125,21 @@ inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 	seqan::Score<int> score(1, -2, -3, -4);
 
 	seqan::Align<seqan::String<seqan::Dna> > align_pp;
-	seqan::LocalAlignmentFinder<> finder_pp(align_pp);
 
 	// 10 is the score when there are exactly 10 overlapping
 	// matches
 	if (Do2StringSW(a.seq, b.seq, align_pp, score)) {
-		Keep2StringAlign(a.seq, b.seq, aligns, align_pp, true);
+		Keep2StringAlign(a.id, a.seq, b.id, b.seq, aligns, align_pp, true);
 	}
 
 	std::string a_rc = a.seq;
 	seqan::reverseComplement(a_rc);
 	seqan::Align<seqan::String<seqan::Dna> > align_mp;
-	seqan::LocalAlignmentFinder<> finder_mp(align_mp);
 
 	// 10 is the score when there are exactly 10 overlapping
 	// matches
 	if (Do2StringSW(a_rc, b.seq, align_mp, score)) {
-		Keep2StringAlign(a_rc, b.seq, aligns, align_mp, false);
+		Keep2StringAlign(a.id, a_rc, b.id, b.seq, aligns, align_mp, false);
 	}
 
 }

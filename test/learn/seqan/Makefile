@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -W -Wall -Wno-long-long -pedantic -Wno-variadic-macros -ggdb
-LIBS = -lrt
+LIBS = -lrt 
 INC = -I ../../../util/seqan-1.3.1/
 
 all: learn alignment_local
