@@ -65,7 +65,7 @@ inline void AlignStrSingleAlign(std::string &align_str,
 	// M - match
 	// [ - gap in s1
 	// ] - gap in s2
-	// % - match
+	// % - mismatch
 
 	seqan::Iterator<
 			seqan::Row<seqan::Align<seqan::String<seqan::Dna>, seqan::ArrayGaps> >::Type>::Type s1_it =
@@ -77,6 +77,21 @@ inline void AlignStrSingleAlign(std::string &align_str,
 	size_t align_len = seqan::length(seqan::row(align, 0));
 
 	for (size_t i = 0; i != align_len; ++i) {
+		bool s1_gap = seqan::isGap(s1_it);
+		bool s2_gap = seqan::isGap(s2_it);
+		if (!s1_gap && !s2_gap) {
+			if (*s1_it == *s2_it) {
+				align_str.push_back('M');
+			} else {
+				align_str.push_back('%');
+			}
+		} else {
+			if (s1_gap) {
+				align_str.push_back('[');
+			} else {
+				align_str.push_back(']');
+			}
+		}
 		++s1_it;
 		++s2_it;
 	}
