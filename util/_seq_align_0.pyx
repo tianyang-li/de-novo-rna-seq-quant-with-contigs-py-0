@@ -75,13 +75,16 @@ def SingleReadContigPairAlign(contig_file, read_file):
     SingleReadContigPairCPP(& read_seqs_cpp,
                               & contig_seqs_cpp, & rc_aligns)
     
-    #TODO: not a list
-    test1 = []
+    align_results = {}
     cdef vector[_seq_align_0.SingleAlign].iterator i = rc_aligns.begin()
     cdef _seq_align_0.SingleAlign cur_align
     while i != rc_aligns.end():
         cur_align = deref(i)
-        test1.append(convert_SingleAlign(& cur_align))
+        align_obj = convert_SingleAlign(& cur_align)
+        align_results.setdefault(align_obj.s1_id, []).append(align_obj)
+        align_results.setdefault(align_obj.s2_id, []).append(align_obj)
         inc(i)
+    
+    return align_results
     
     

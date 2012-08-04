@@ -34,6 +34,8 @@ inline int Do2StringSW(std::string const &a, std::string const &b,
 		seqan::Align<seqan::String<seqan::Dna> > &align,
 		seqan::Score<int> const &score,
 		int score_th = 10 /* threshold for SW score */) {
+	// TODO: how to choose score_th
+
 	seqan::appendValue(seqan::rows(align), a);
 	seqan::appendValue(seqan::rows(align), b);
 	int sw_score = seqan::localAlignment(align, score, seqan::SmithWaterman());
@@ -41,7 +43,9 @@ inline int Do2StringSW(std::string const &a, std::string const &b,
 }
 
 inline bool End2AlignRelativePos(size_t seq_len, size_t align_start,
-		size_t align_end, float ratio = 0.15) {
+		size_t align_end, float ratio = 0.12) {
+	// TODO: how to choose ratio?
+
 	// return true if the end or start of the sequence
 	// is within ratio * seq_len of
 	// the start or the end of the alignment
@@ -155,9 +159,16 @@ inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 
 }
 
-inline void _SingleReadContigPairCPP(std::vector<SingleSeq> &reads,
-		std::vector<SingleSeq> &contigs, std::vector<SingleAlign> &aligns) {
-
+inline void _SingleReadContigPairCPP(std::vector<SingleSeq> const &reads,
+		std::vector<SingleSeq> const &contigs,
+		std::vector<SingleAlign> &aligns) {
+	for (std::vector<SingleSeq>::const_iterator i = reads.begin();
+			i != reads.end(); ++i) {
+		for (std::vector<SingleSeq>::const_iterator j = contigs.begin();
+				j != contigs.end(); ++j) {
+			DoSingleSWAlign(*i, *j, aligns);
+		}
+	}
 }
 
 } // namespace seq_align_0
