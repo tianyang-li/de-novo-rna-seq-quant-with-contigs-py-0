@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 #include <cstddef>
+#include <iostream>
 
 #include <seqan.h>
 #include <seqan/align.h>

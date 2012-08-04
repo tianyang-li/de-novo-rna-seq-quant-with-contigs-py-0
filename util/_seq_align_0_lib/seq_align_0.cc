@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
+
 #include <seqan.h>
 
 #include "seq_align_0.h"
@@ -29,5 +31,4 @@ void SingleReadContigPairCPP(std::vector<SingleSeq> *reads,
 }
 
 } // namespace seq_align_0
-
 
