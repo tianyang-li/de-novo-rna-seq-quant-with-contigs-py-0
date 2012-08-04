@@ -30,18 +30,14 @@
 
 namespace seq_align_0 {
 
-inline bool Do2StringSW(std::string const &a, std::string const &b,
+inline int Do2StringSW(std::string const &a, std::string const &b,
 		seqan::Align<seqan::String<seqan::Dna> > &align,
 		seqan::Score<int> const &score,
 		int score_th = 10 /* threshold for SW score */) {
 	seqan::appendValue(seqan::rows(align), a);
 	seqan::appendValue(seqan::rows(align), b);
 	int sw_score = seqan::localAlignment(align, score, seqan::SmithWaterman());
-	if (sw_score > score_th) {
-		return true;
-	} else {
-		return false;
-	}
+	return sw_score - score_th;
 }
 
 inline bool End2AlignRelativePos(size_t seq_len, size_t align_start,
@@ -143,7 +139,7 @@ inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 
 	// 10 is the score when there are exactly 10 overlapping
 	// matches
-	if (Do2StringSW(a.seq, b.seq, align_pp, score)) {
+	if (Do2StringSW(a.seq, b.seq, align_pp, score) >= 0) {
 		Keep2StringAlign(a.id, a.seq, b.id, b.seq, aligns, align_pp, true);
 	}
 
@@ -153,7 +149,7 @@ inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 
 	// 10 is the score when there are exactly 10 overlapping
 	// matches
-	if (Do2StringSW(a_rc, b.seq, align_mp, score)) {
+	if (Do2StringSW(a_rc, b.seq, align_mp, score) >= 0) {
 		Keep2StringAlign(a.id, a_rc, b.id, b.seq, aligns, align_mp, false);
 	}
 

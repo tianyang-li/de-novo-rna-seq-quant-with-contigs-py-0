@@ -33,7 +33,8 @@ public:
 
 	SingleAlign(SingleAlign const &x) :
 			s1_id(x.s1_id), s1_start(x.s1_start), s1_end(x.s1_end), s2_id(
-					x.s2_id), s2_start(x.s2_start), s2_end(x.s2_end) {
+					x.s2_id), s2_start(x.s2_start), s2_end(x.s2_end), align_str(
+					x.align_str) {
 		CpStrand(x);
 		SetStrandNull();
 	}
@@ -50,6 +51,7 @@ public:
 			s2_id = x.s2_id;
 			s2_start = x.s2_start;
 			s2_end = x.s2_end;
+			align_str = x.align_str;
 			CpStrand(x);
 		}
 		return *this;
