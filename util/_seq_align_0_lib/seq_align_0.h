@@ -65,6 +65,7 @@ public:
 	int s2_start, s2_end; // python convention
 	char s2_strand[2]; // '+' 5' -> 3'; '-' reverse_complement(5' -> 3')
 
+	// TODO: modify align_str if too much memory is used
 	std::string align_str;
 	// format
 	// M - match

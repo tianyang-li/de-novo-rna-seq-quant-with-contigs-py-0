@@ -96,8 +96,6 @@ inline void AlignStrSingleAlign(std::string &align_str,
 		++s1_it;
 		++s2_it;
 	}
-
-	// TODO: modify align_str if too much memory is used
 }
 
 inline bool Keep2StringAlign(std::string const &a_id, std::string const &a_seq,
