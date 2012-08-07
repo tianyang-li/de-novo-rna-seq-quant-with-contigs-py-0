@@ -135,14 +135,18 @@ inline bool Keep2StringAlign(std::string const &a_id, std::string const &a_seq,
 	return true;
 }
 
+inline void DoSingleAlign0(SingleSeq const &a, SingleSeq const &b,
+		std::vector<SingleAlign> &aligns) {
+	std::string a_rc = a.seq;
+	seqan::reverseComplement(a_rc);
+}
+
 inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 		std::vector<SingleAlign> &aligns) {
 	seqan::Score<int> score(1, -2, -3, -4);
 
 	seqan::Align<seqan::String<seqan::Dna> > align_pp;
 
-	// 10 is the score when there are exactly 10 overlapping
-	// matches
 	if (Do2StringSW(a.seq, b.seq, align_pp, score) >= 0) {
 		Keep2StringAlign(a.id, a.seq, b.id, b.seq, aligns, align_pp, true);
 	}
@@ -151,8 +155,6 @@ inline void DoSingleSWAlign(SingleSeq const &a, SingleSeq const &b,
 	seqan::reverseComplement(a_rc);
 	seqan::Align<seqan::String<seqan::Dna> > align_mp;
 
-	// 10 is the score when there are exactly 10 overlapping
-	// matches
 	if (Do2StringSW(a_rc, b.seq, align_mp, score) >= 0) {
 		Keep2StringAlign(a.id, a_rc, b.id, b.seq, aligns, align_mp, false);
 	}
@@ -166,7 +168,7 @@ inline void _SingleReadContigPairCPP(std::vector<SingleSeq> const &reads,
 			i != reads.end(); ++i) {
 		for (std::vector<SingleSeq>::const_iterator j = contigs.begin();
 				j != contigs.end(); ++j) {
-			DoSingleSWAlign(*i, *j, aligns);
+			DoSingleAlign0(*i, *j, aligns);
 		}
 	}
 }
