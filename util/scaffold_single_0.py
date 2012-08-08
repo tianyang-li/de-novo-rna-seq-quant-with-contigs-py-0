@@ -15,18 +15,49 @@
 #
 #  You should have received a copy of the GNU General Public License
 
+"""
+this only works on 
+    SINGLE
+reads    
+"""
+
 import sys
 import getopt
 
+import pysam
 from Bio import SeqIO
 
-
+def scaffold_single(contig_file, all_read_file, blat_file, bowtie_file):
+    gene_loci = []
+    return gene_loci
 
 def main():
     contig_file = None
-    all_read_file = None
-    blat_reads = None  # reads that are fed to blat to align
-    ua_reads = None  # reads unaligned by bowtie and blat 
+    read_file = None
+    blat_file = None
+    bowtie_file = None
+    try:
+        opts, _ = getopt.getopt(sys.argv[1:], 'c:s:', ["blat=", "bowtie="])
+    except getopt.GetoptError as err:
+        print >> sys.stderr, str(err)
+        sys.exit(1)
+    for opt, arg in opts:
+        if opt == '-c':
+            # contigs
+            contig_file = arg
+        if opt == '-s':
+            # single reads
+            read_file = arg
+        if opt == '--blat':
+            blat_file = arg
+        if opt == '--psl':
+            bowtie_file = arg
+    if (not contig_file
+        or not read_file
+        or not blat_file
+        or bowtie_file):
+        print >> sys.stderr, "missing"
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()
