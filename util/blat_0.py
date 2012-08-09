@@ -91,6 +91,11 @@ class BlatEntry(object):
                 + "".join(("%d," % x) for x in self.tStarts))
 
 def read_psl(psl_file):
+    """
+    for
+        SINGLE
+    reads only
+    """
     with open(psl_file, 'r') as fin:
         for line in fin:
             yield BlatEntry(line)

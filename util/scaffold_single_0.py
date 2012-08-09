@@ -27,6 +27,8 @@ import getopt
 import pysam
 from Bio import SeqIO
 
+from blat_0 import read_psl
+
 def scaffold_single(contig_file, all_read_file, blat_file, bowtie_file):
     gene_loci = []
     return gene_loci
