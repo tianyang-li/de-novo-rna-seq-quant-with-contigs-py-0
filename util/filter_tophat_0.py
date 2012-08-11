@@ -16,50 +16,51 @@
 #  You should have received a copy of the GNU General Public License
 
 """
-this only works on 
+for
     SINGLE
-reads    
+reads only    
 """
 
-import sys
 import getopt
+import sys
 
+import pysam
 from Bio import SeqIO
 
-from find_junc_reads_0 import find_junc_reads
-
-def scaffold_single(contig_file, all_read_file, blat_file, tophat_file):
-    gene_loci = []
-    return gene_loci
+def filter_tophat(tophat_file, unaligned_file, read_file):
+    bamfile = pysam.Samfile(tophat_file, 'rb')
+    aligned_ids = set([])
+    for align in bamfile.fetch():
+        if not align.is_unmapped:
+            aligned_ids.add(align.qname)
+    with open(unaligned_file, 'w') as fout:
+        for rec in SeqIO.parse(read_file, 'fastq'):
+            if rec.id not in aligned_ids:
+                fout.write(rec.format('fasta'))
 
 def main():
-    contig_file = None
-    read_file = None
-    blat_file = None
     tophat_file = None
+    unaligned_file = None
+    read_file = None
     try:
-        opts, _ = getopt.getopt(sys.argv[1:], 'c:s:', ["blat=", "tophat="])
+        opts, _ = getopt.getopt(sys.argv[1:], 's:', ['tophat=', 'un='])
     except getopt.GetoptError as err:
         print >> sys.stderr, str(err)
         sys.exit(1)
     for opt, arg in opts:
-        if opt == '-c':
-            # contigs
-            contig_file = arg
+        if opt == '--un':
+            unaligned_file = arg
         if opt == '-s':
-            # single reads
-            read_file = arg
-        if opt == '--blat':
-            blat_file = arg
-        if opt == '--psl':
+            read_file = arg 
+        if opt == '--tophat':
             tophat_file = arg
-    if (not contig_file
-        or not read_file
-        or not blat_file
-        or tophat_file):
+    if (not tophat_file
+        or not unaligned_file
+        or not read_file):
         print >> sys.stderr, "missing"
         sys.exit(1)
+    filter_tophat(tophat_file, unaligned_file, read_file)
 
 if __name__ == '__main__':
-    main()
+    main()    
 
