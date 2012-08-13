@@ -15,6 +15,12 @@
 #
 #  You should have received a copy of the GNU General Public License
 
+"""
+for
+    PAIRED-END 
+reads
+"""
+
 import sys
 
 from blat_0 import read_psl
