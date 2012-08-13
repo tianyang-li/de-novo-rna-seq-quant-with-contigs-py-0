@@ -24,12 +24,8 @@ for
 reads only    
 """
 
-import pysam
-
 from blat_0 import read_psl
 from classes_0 import Interval
-
-def tophat_is_aligned_junc_0(align):
 
 def find_junc_reads(blat_file, tophat_file):
     
