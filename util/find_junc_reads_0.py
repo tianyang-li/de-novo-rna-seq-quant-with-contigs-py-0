@@ -28,10 +28,6 @@ from blat_0 import read_psl
 from classes_0 import Interval
 
 def find_junc_reads(blat_file, tophat_file):
-    
-    tophat = pysam.Samfile(tophat_file, 'rb')
-    for align in tophat.fetch():
-        if not align.is_unmapped:
             
     contig2junc_reads = {}        
     return read2contig_juncs
