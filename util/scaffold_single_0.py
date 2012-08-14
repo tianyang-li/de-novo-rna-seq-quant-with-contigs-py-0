@@ -26,19 +26,26 @@ import getopt
 
 from Bio import SeqIO
 
-from find_junc_reads_0 import find_junc_reads
+from blat_0 import read_psl
 
-def scaffold_single(contig_file, all_read_file, blat_file, tophat_file):
+def scaffold_single(contig_file, read_file, blat_file):
+    rc_aligns = {}  # rc_aligns[contig] = [alignments of reads on to contig]
+    for psl in read_psl(blat_file):
+        rc_aligns.setdefault(psl.tName, []).append(psl)
+    
+    for reads in rc_aligns.itervalues():
+        reads.sort(key=lambda r: r.tStart)
+    
     gene_loci = []
     return gene_loci
+
 
 def main():
     contig_file = None
     read_file = None
     blat_file = None
-    tophat_file = None
     try:
-        opts, _ = getopt.getopt(sys.argv[1:], 'c:s:', ["blat=", "tophat="])
+        opts, _ = getopt.getopt(sys.argv[1:], 'c:s:', ["blat="])
     except getopt.GetoptError as err:
         print >> sys.stderr, str(err)
         sys.exit(1)
@@ -51,14 +58,14 @@ def main():
             read_file = arg
         if opt == '--blat':
             blat_file = arg
-        if opt == '--psl':
-            tophat_file = arg
     if (not contig_file
         or not read_file
-        or not blat_file
-        or tophat_file):
+        or not blat_file):
         print >> sys.stderr, "missing"
         sys.exit(1)
+    
+    gene_loci = scaffold_single(contig_file, read_file, blat_file)
+
 
 if __name__ == '__main__':
     main()

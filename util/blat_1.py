@@ -21,13 +21,25 @@ for
 reads
 """
 
+import getopt
 import sys
 
 from blat_0 import read_psl
 
-def read_paired_psl(psl1, psl2):
+def read_paired_psl(psl1_file, psl2_file, psl_paired_out):
+    psl1 = {}
+    psl2 = {}
 
 def main():
+    psl1_file = None
+    psl2_file = None
+    psl_paired_out = None
+    if (not psl1_file
+        or not psl2_file
+        or not psl_paired_out):
+        print >> sys.stderr, "missing"
+        sys.exit(1)
+    read_paired_psl(psl1_file, psl2_file, psl_paired_out)
 
 if __name__ == '__main__':
     main()
