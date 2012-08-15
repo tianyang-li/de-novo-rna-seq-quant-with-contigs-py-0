@@ -27,8 +27,10 @@ import sys
 from blat_0 import read_psl
 
 def read_paired_psl(psl1_file, psl2_file, psl_paired_out):
-    psl1 = {}
-    psl2 = {}
+    """
+    psl1_file, psl2_file
+        sorted first by qName then by tName
+    """
 
 def main():
     psl1_file = None

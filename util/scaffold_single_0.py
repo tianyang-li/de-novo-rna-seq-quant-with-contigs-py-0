@@ -29,12 +29,14 @@ from Bio import SeqIO
 from blat_0 import read_psl
 
 def scaffold_single(contig_file, read_file, blat_file):
+    """
+    blat_file
+        sorted by tName then by tStart
+    """
+    
     rc_aligns = {}  # rc_aligns[contig] = [alignments of reads on to contig]
     for psl in read_psl(blat_file):
         rc_aligns.setdefault(psl.tName, []).append(psl)
-    
-    for reads in rc_aligns.itervalues():
-        reads.sort(key=lambda r: r.tStart)
     
     gene_loci = []
     return gene_loci

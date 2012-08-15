@@ -43,6 +43,16 @@ tStarts - Comma-separated list of starting positions of each block in target
 import sys
 
 class BlatEntry(object):
+    __slots__ = ["matches", "misMatches",
+                 "repMatches", "nCount",
+                 "qNumInsert", "qBaseInsert",
+                 "tNumInsert", "tBaseInsert",
+                 "strand", "qName", "qSize",
+                 "qStart", "qEnd", "tName",
+                 "tSize", "tStart", "tEnd",
+                 "blockCount", "blockSizes",
+                 "qStarts", "tStarts"]
+    
     def __init__(self, line):
         entries = line.strip().split("\t")
         self.matches = int(entries[0])
