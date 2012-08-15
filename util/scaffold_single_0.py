@@ -35,8 +35,16 @@ def scaffold_single(contig_file, read_file, blat_file):
     """
     
     rc_aligns = {}  # rc_aligns[contig] = [alignments of reads on to contig]
+    
+    cur_tName = None
+    cur_rc = None
     for psl in read_psl(blat_file):
-        rc_aligns.setdefault(psl.tName, []).append(psl)
+        if psl.tName != cur_tName:
+            rc_aligns[cur_tName] = cur_rc
+            cur_tName = psl.tName
+            cur_rc = []
+        cur_rc.append(psl)
+    del rc_aligns[cur_tName]
     
     gene_loci = []
     return gene_loci
