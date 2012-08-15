@@ -28,6 +28,9 @@ from Bio import SeqIO
 
 from blat_0 import read_psl
 
+class Junction(object):
+    __slots__ = []
+
 def scaffold_single(contig_file, read_file, blat_file):
     """
     blat_file
