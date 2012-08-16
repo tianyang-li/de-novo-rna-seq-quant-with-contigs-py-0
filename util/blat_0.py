@@ -42,6 +42,8 @@ tStarts - Comma-separated list of starting positions of each block in target
 
 import sys
 
+from itertools import izip
+
 class BlatEntry(object):
     __slots__ = ["matches", "misMatches",
                  "repMatches", "nCount",
@@ -99,6 +101,21 @@ class BlatEntry(object):
                 + "".join(("%d," % x) for x in self.blockSizes) + "\t"
                 + "".join(("%d," % x) for x in self.qStarts) + "\t"
                 + "".join(("%d," % x) for x in self.tStarts))
+    
+    def get_tBlocks(self):
+        return self._get_blocks(self.tStarts)
+    
+    def get_qBlocks(self):
+        return self._get_blocks(self.qStarts)
+        
+    def _get_blocks(self, starts):
+        """
+        each block is a Pythonic range
+        """
+        blocks = []
+        for start, block_size in izip(starts, self.blockSizes):
+            blocks.append((start, start + block_size))
+        
 
 def read_psl(psl_file):
     """
@@ -109,6 +126,7 @@ def read_psl(psl_file):
     with open(psl_file, 'r') as fin:
         for line in fin:
             yield BlatEntry(line)
+
 
 def main():
     if not sys.argv[1:]:

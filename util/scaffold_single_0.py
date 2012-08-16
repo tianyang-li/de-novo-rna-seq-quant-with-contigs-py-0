@@ -28,8 +28,12 @@ from Bio import SeqIO
 
 from blat_0 import read_psl
 
-class Junction(object):
-    __slots__ = []
+class SingleContig(object):
+    __slots__ = ["reads", "junctions"]
+    
+    def __init__(self):
+        self.reads = []
+        self.junctions = []
 
 def scaffold_single(contig_file, read_file, blat_file):
     """
@@ -43,11 +47,17 @@ def scaffold_single(contig_file, read_file, blat_file):
     cur_rc = None
     for psl in read_psl(blat_file):
         if psl.tName != cur_tName:
-            rc_aligns[cur_tName] = cur_rc
+            contig = SingleContig()
+            contig.reads = cur_rc
+            rc_aligns[cur_tName] = contig
             cur_tName = psl.tName
             cur_rc = []
         cur_rc.append(psl)
-    del rc_aligns[cur_tName]
+    if cur_rc:
+        contig = SingleContig()
+        contig.reads = cur_rc
+        rc_aligns[cur_tName] = cur_rc
+    del rc_aligns[None]        
     
     gene_loci = []
     return gene_loci
