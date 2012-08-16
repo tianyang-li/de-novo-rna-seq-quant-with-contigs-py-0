@@ -36,8 +36,13 @@ class SingleContig(object):
         self.junctions = []
         self.contig = None  # contig sequence
 
+
     def find_junctions(self):
+        splice_count = [0] * (len(self.contig) - 1)
         
+        for psl in self.rc:
+            for block in psl.get_tBlocks():
+                 
         
 
 def scaffold_single(contig_file, read_file, blat_file):
