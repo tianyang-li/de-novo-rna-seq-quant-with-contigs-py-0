@@ -27,62 +27,16 @@ import getopt
 from Bio import SeqIO
 
 from blat_0 import read_psl
-
-class SingleContig(object):
-    __slots__ = ["rc", "junctions", "contig"]
     
-    def __init__(self):
-        self.rc = []
-        self.junctions = []
-        self.contig = None  # contig sequence
 
-
-    def find_junctions(self):
-        splice_count = [0] * (len(self.contig) - 1)
-        
-        for psl in self.rc:
-            for block in psl.get_tBlocks():
-                 
-        
-
-def scaffold_single(contig_file, read_file, blat_file):
+def scaffold_single(contig_file, read_file, blat_file, dot_file):
     """
     blat_file
         sorted by tName then by tStart
-    """
     
-    rc_aligns = {}  # rc_aligns[contig] = [alignments of reads on to contig]
-    
-    c_seqs = {}  # contig sequences
-    c_seqs[None] = None
-    for rec in SeqIO.parse(read_file, 'fasta'):
-        c_seqs[rec.id] = str(rec.seq)
-    
-    cur_tName = None
-    cur_rc = None
-    
-    for psl in read_psl(blat_file):
-        
-        if psl.tName != cur_tName:
-            contig = SingleContig()
-            contig.rc = cur_rc
-            contig.contig = c_seqs[cur_tName]
-            contig.find_junctions()
-            rc_aligns[cur_tName] = contig
-            
-            cur_tName = psl.tName
-            cur_rc = []
-            
-        cur_rc.append(psl)
-        
-    if cur_rc:
-        contig = SingleContig()
-        contig.rc = cur_rc
-        contig.contig = c_seqs[cur_tName]
-        contig.find_junctions()
-        rc_aligns[cur_tName] = contig
-        
-    del rc_aligns[None]        
+    contig_file
+        sorted by component id
+    """  
     
     gene_loci = []
     return gene_loci
