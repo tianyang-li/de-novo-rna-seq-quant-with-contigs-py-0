@@ -15,14 +15,14 @@
 #
 #  You should have received a copy of the GNU General Public License
 
-nuc_comp = {"A": "T",
-            "G": "C",
-            "C": "G",
-            "T": "A"}
+from Bio import SeqIO
 
-def reverse_complement(seq):
-    #TODO: make it faster?
-    return "".join(b_rc for b_rc in 
-                   map(lambda b: nuc_comp[b], seq)[::-1])
+def get_seq_dict(seq_file, fmt):
+    seq_dict = {}
+    for rec in SeqIO.parse(seq_file, fmt):
+        seq_dict[rec.id] = str(rec.seq)
+    return seq_dict
     
+
+
 

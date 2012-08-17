@@ -25,18 +25,21 @@ import sys
 import getopt
 
 from Bio import SeqIO
+import networkx as nx
 
 from blat_0 import read_psl
     
 
-def scaffold_single(contig_file, read_file, blat_file, dot_file):
+def scaffold_single(contig_file, read_dict, blat_file, dot_file):
     """
     blat_file
         sorted by tName then by tStart
     
-    contig_file
-        sorted by component id
+    read_dict
+        
     """  
+    
+    
     
     gene_loci = []
     return gene_loci
