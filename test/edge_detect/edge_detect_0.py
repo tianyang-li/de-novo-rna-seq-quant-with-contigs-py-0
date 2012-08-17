@@ -15,15 +15,25 @@
 #
 #  You should have received a copy of the GNU General Public License
 
+from __future__ import division
+
 import getopt
 import sys
+import random
 
 def main():
-    contig_file = None
-    if (not contig_file):
+    win_size = None
+    ratio = None
+    if (not win_size
+        or not ratio):
         print >> sys.stderr, "missing"
         sys.exit(1)
-
+    
+    p = 1 / (ratio + 1)
+    q = 1 - p
+    
+    
 if __name__ == '__main__':
     main()
+    
 

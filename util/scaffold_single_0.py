@@ -34,12 +34,11 @@ def scaffold_single(contig_file, read_dict, blat_file, dot_file):
     """
     blat_file
         sorted by tName then by tStart
-    
-    read_dict
-        
     """  
     
-    
+    contigs = {}
+    for rec in SeqIO.parse(contig_file, 'fasta'):
+        contigs[rec.id] = rec
     
     gene_loci = []
     return gene_loci
