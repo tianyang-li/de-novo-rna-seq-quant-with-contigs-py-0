@@ -15,22 +15,40 @@
 #
 #  You should have received a copy of the GNU General Public License
 
+
 from __future__ import division
 
 import getopt
 import sys
 import random
 
+
 def main():
     win_size = None
     ratio = None
+    total_count = None
+    try:
+        opts, _ = getopt.getopt(sys.argv[1:], 'w:r:t:')
+    except getopt.GetoptError as err:
+        print >> sys.stderr, str(err)
+        sys.exit(1)
+    for opt, arg in opts:
+        if opt == '-w':
+            win_size = int(arg)
+        if opt == '-r':
+            ratio = float(arg)
+        if opt == '-t':
+            total_count = int(arg)
     if (not win_size
-        or not ratio):
+        or not ratio
+        or not total_count):
         print >> sys.stderr, "missing"
         sys.exit(1)
     
     p = 1 / (ratio + 1)
     q = 1 - p
+    
+    counts = [0] * (4 * win_size)
     
     
 if __name__ == '__main__':
