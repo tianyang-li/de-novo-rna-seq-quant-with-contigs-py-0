@@ -22,13 +22,19 @@ import getopt
 import sys
 import random
 
+from scipy.stats import ttest_ind
+
 
 def edge_stat(counts, win_size):
     """
     counts
         a list of length (2 * win_size)
+        
+    uses pearson's chi-squared test
     """
-    
+    # t : float or array t-statistic
+    # prob : float or array two-tailed p-value
+    return ttest_ind(counts[:win_size], counts[win_size:])
 
 
 def main():
@@ -64,6 +70,12 @@ def main():
             offset = 2 * win_size
         counts[offset + 
                random.randint(0, 2 * win_size - 1)] += 1
+    
+    for edge_loc in xrange(-win_size, win_size + 1):
+        t_stat, p_val = edge_stat(counts[edge_loc + win_size:
+                                         edge_loc + 3 * win_size],
+                                  win_size)
+        print edge_loc, t_stat, p_val
     
     
 if __name__ == '__main__':
