@@ -22,7 +22,8 @@ import getopt
 import sys
 import random
 
-from scipy.stats import ttest_ind
+from scipy.stats import chisquare
+import numpy as np
 
 
 def edge_stat(counts, win_size):
@@ -32,9 +33,9 @@ def edge_stat(counts, win_size):
         
     uses pearson's chi-squared test
     """
-    # t : float or array t-statistic
-    # prob : float or array two-tailed p-value
-    return ttest_ind(counts[:win_size], counts[win_size:])
+    # chi-stat, p-val
+    return chisquare([sum(counts[:win_size]),
+                      sum(counts[win_size:])])
 
 
 def main():
