@@ -23,6 +23,14 @@ import sys
 import random
 
 
+def edge_stat(counts, win_size):
+    """
+    counts
+        a list of length (2 * win_size)
+    """
+    
+
+
 def main():
     win_size = None
     ratio = None
@@ -46,9 +54,16 @@ def main():
         sys.exit(1)
     
     p = 1 / (ratio + 1)
-    q = 1 - p
     
     counts = [0] * (4 * win_size)
+    
+    for _ in xrange(total_count):
+        if p >= random.random():
+            offset = 0
+        else:
+            offset = 2 * win_size
+        counts[offset + 
+               random.randint(0, 2 * win_size - 1)] += 1
     
     
 if __name__ == '__main__':
