@@ -23,7 +23,6 @@ import sys
 import random
 
 from scipy.stats import chisquare
-import numpy as np
 
 
 def edge_stat(counts, win_size):
